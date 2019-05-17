@@ -1,0 +1,14 @@
+一、首先启动kafka
+1.进入kafka目录    cd ~/下载/kafka_2.11-1.1.0/
+2.启动Zookeeper服务    bin/zookeeper-server-start.sh config/zookeeper.properties
+  另起一个终端，启动kafka server    bin/kafka-server-start.sh config/server.properties
+3.再启一个终端，创建一个topic    bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+
+  通过该命令可以查看test是否创建成功  bin/kafka-topics.sh --list --zookeeper localhost:2181
+4.发送一些消息   bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+
+5.另起一个终端，接收消息。   bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
+
+ 接着即可运行KafkaProducerVaulesExample例子了，可以在终端看到输出结果
+KafkaProducerValuesExample和KafkaProducerExample 是在test的topic中添加一些字符串
+KafkaConsumerExample则是消费，进行wordCount后输出到文件
